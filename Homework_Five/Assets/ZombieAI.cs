@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class ZombieAI : MonoBehaviour
 {
     [SerializeField] Transform target;
-    [SerializeField] float chaseRange = 10f;
+    // [SerializeField] float chaseRange = 10f;
     NavMeshAgent navMeshAgent;
     float distanceToTarget = Mathf.Infinity;
     // Start is called before the first frame update
@@ -21,17 +21,17 @@ public class ZombieAI : MonoBehaviour
     {
         distanceToTarget = Vector3.Distance(target.position, transform.position);
 
-        // if (distanceToTarget > navMeshAgent.stoppingDistance){
-        //     GetComponent<Animator>().SetBool("Attack", false);
-        //     GetComponent<Animator>().SetTrigger("Move");
-        //     navMeshAgent.SetDestination(target.position);
-        // }
-
-        // if (distanceToTarget <= navMeshAgent.stoppingDistance){
-        //     GetComponent<Animator>().SetBool("Attack", true);
-        // }
-        if(distanceToTarget <= chaseRange){
+        if (distanceToTarget > navMeshAgent.stoppingDistance){
+            GetComponent<Animator>().SetBool("attackParam", false);
+            GetComponent<Animator>().SetTrigger("moveParam");
             navMeshAgent.SetDestination(target.position);
         }
+
+        if (distanceToTarget <= navMeshAgent.stoppingDistance){
+            GetComponent<Animator>().SetBool("attackParam", true);
+        }
+        // if(distanceToTarget <= chaseRange){
+        //     navMeshAgent.SetDestination(target.position);
+        // }
     }
 }
